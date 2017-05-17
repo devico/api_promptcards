@@ -20,9 +20,9 @@ load 'rails/tasks/statistics.rake'
 
 require 'bundler/gem_tasks'
 
-require 'rake/spectask'
+require 'rake/testtask'
 
-Rake::SpecTask.new(:spec) do |t|
+Rake::TestTask.new(:spec) do |t|
   t.libs << 'lib'
   t.libs << 'spec'
   t.pattern = 'spec/**/*_spec.rb'
