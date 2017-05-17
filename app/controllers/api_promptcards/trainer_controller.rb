@@ -3,7 +3,7 @@ require_dependency "api_promptcards/application_controller"
 module ApiPromptcards
   class TrainerController < ApplicationController
     def index
-      result = ApiPromptcards::TrainingCard.call(user: current_user, card_id: params[:id])
+      result = TrainingCard.call(user: current_user, card_id: params[:id])
       @card = result.card
     
       respond_to do |format|
@@ -13,7 +13,7 @@ module ApiPromptcards
     end
 
     def review_card
-      @result = ApiPromptcards::ReviewCard.call(
+      @result = ReviewCard.call(
         card_id: current_user.cards.find(params[:card_id]),
         user_translation: trainer_params[:user_translation], 
         authenticity_token: trainer_params[:authenticity_token]

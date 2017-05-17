@@ -5,7 +5,7 @@ module ApiPromptcards
     def call
       @card = Card.find(context.card_id)
       
-      check_result = ApiPromptcards::CheckTranslation.new().call({ 
+      check_result = CheckTranslation.new().call({ 
                        translated_text: @card.translated_text,
                        user_translation: context.user_translation,
                        review_date: @card.review_date,
