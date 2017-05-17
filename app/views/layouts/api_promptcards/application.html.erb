@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Api promptcards</title>
+  <title>Api promptcards::Флэшкарточкер</title>
   <%= stylesheet_link_tag    "api_promptcards/application", media: "all" %>
   <%= javascript_include_tag "api_promptcards/application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div class="container" id="wrapper">
+    <%= render 'shared/header' %>
+    <div class="row" id="middle">
+      <div id="notice_block">
+        <%= render 'shared/alert_notice' %>
+      </div>
+      <div class="col-sm-12">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
