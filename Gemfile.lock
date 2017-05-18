@@ -57,6 +57,7 @@ GEM
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     i18n (0.8.1)
+    interactor (3.1.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.5)
@@ -136,6 +137,7 @@ PLATFORMS
 DEPENDENCIES
   api_promptcards!
   factory_girl_rails
+  interactor
   rspec-rails
   sqlite3
 
