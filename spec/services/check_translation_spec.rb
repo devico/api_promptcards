@@ -1,7 +1,7 @@
 require 'rails_helper'
-describe ApiPromptcards::CheckTranslation do
+describe CheckTranslation do
 
-  subject { ApiPromptcards::CheckTranslation.new() }
+  subject { CheckTranslation.new() }
 
   describe '#call' do
 

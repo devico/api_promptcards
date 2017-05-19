@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     api_promptcards (0.1.0)
-      interactor
       rails (~> 5.0.1)
 
 GEM
