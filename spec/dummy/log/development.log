@@ -5,3 +5,384 @@
   [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-05-17 20:45:30.623908"], ["updated_at", "2017-05-17 20:45:30.623908"]]
   [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateCards (20150324181429)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class CreateCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "cards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original" text, "translated" text, "review" date, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150324181429"]]
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to RenameOriginalFromCards (20150325070602)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class RenameOriginalFromCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated" text, "review" date, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acards" ("id","original_text","translated","review","created_at","updated_at")
+                     SELECT "id","original","translated","review","created_at","updated_at" FROM "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "cards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated" text, "review" date, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "cards" ("id","original_text","translated","review","created_at","updated_at")
+                     SELECT "id","original_text","translated","review","created_at","updated_at" FROM "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review" date, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acards" ("id","original_text","translated_text","review","created_at","updated_at")
+                     SELECT "id","original_text","translated","review","created_at","updated_at" FROM "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "cards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review" date, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "cards" ("id","original_text","translated_text","review","created_at","updated_at")
+                     SELECT "id","original_text","translated_text","review","created_at","updated_at" FROM "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" date, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acards" ("id","original_text","translated_text","review_date","created_at","updated_at")
+                     SELECT "id","original_text","translated_text","review","created_at","updated_at" FROM "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "cards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" date, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "cards" ("id","original_text","translated_text","review_date","created_at","updated_at")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at" FROM "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acards"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150325070602"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUsers (20150327203129)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class CreateUsers < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150327203129"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddUserIdToCards (20150327203526)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class AddUserIdToCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "cards" ADD "user_id" integer[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150327203526"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to ChangeUserIdFieldFromCards (20150327220548)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class ChangeUserIdFieldFromCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" date, "created_at" datetime, "updated_at" datetime, "user_id" integer)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id" FROM "cards"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "cards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" date, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "cards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id" FROM "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acards"[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150327220548"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to ChangeEmailTypeFromUsers (20150329200538)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class ChangeEmailTypeFromUsers < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "ausers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "ausers" ("id","email","password","created_at","updated_at")
+                     SELECT "id","email","password","created_at","updated_at" FROM "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "users" ("id","email","password","created_at","updated_at")
+                     SELECT "id","email","password","created_at","updated_at" FROM "ausers"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "ausers"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150329200538"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddImageToCards (20150330165146)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class AddImageToCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "cards" ADD "image" varchar[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150330165146"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBlocks (20150330194042)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class CreateBlocks < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "blocks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar NOT NULL, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150330194042"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddBlockIdToCards (20150330194306)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class AddBlockIdToCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "cards" ADD "block_id" integer NOT NULL[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddBlockIdToCards (20150330194306)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class AddBlockIdToCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "cards" ADD "block_id" integer[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150330194306"]]
+  [1m[35m (1.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddCurrentBlockToUsers (20150330194536)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class AddCurrentBlockToUsers < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "current_block" integer[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150330194536"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddUserIdToBlocks (20150330200230)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class AddUserIdToBlocks < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "blocks" ADD "user_id" integer NOT NULL[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddUserIdToBlocks (20150330200230)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class AddUserIdToBlocks < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "blocks" ADD "user_id" integer[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150330200230"]]
+  [1m[35m (6.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to RenameCurrentBlockToCurrentBlockIdFromUsers (20150331102819)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class RenameCurrentBlockToCurrentBlockIdFromUsers < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "ausers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime, "current_block_id" integer)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "ausers" ("id","email","password","created_at","updated_at","current_block_id")
+                     SELECT "id","email","password","created_at","updated_at","current_block" FROM "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime, "current_block_id" integer)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "users" ("id","email","password","created_at","updated_at","current_block_id")
+                     SELECT "id","email","password","created_at","updated_at","current_block_id" FROM "ausers"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "ausers"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150331102819"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddReviewStepToCards (20150401155428)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class AddReviewStepToCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "cards" ADD "review_step" integer[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150401155428"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to ChangeReviewStepForCards (20150401155753)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class ChangeReviewStepForCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" date, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "review_step" integer)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step" FROM "cards"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "cards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" date, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "review_step" integer DEFAULT 0 NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "cards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step" FROM "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acards"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150401155753"]]
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to ChangeReviewDateForCards (20150401160441)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class ChangeReviewDateForCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" date, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "review_step" integer DEFAULT 0 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step" FROM "cards"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "cards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" timestamp NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "review_step" integer DEFAULT 0 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "cards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step" FROM "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acards"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" datetime NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "review_step" integer DEFAULT 0 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step" FROM "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "cards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" datetime NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "review_step" integer DEFAULT 1 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "cards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step" FROM "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acards"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150401160441"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddReviewAttemptToCards (20150402104316)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class AddReviewAttemptToCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "cards" ADD "review_attempt" integer DEFAULT 1 NOT NULL[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150402104316"]]
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddLocaleToUsers (20150403222932)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class AddLocaleToUsers < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "locale" varchar[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150403222932"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to ChangeLocaleForUsers (20150404104501)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class ChangeLocaleForUsers < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "ausers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime, "current_block_id" integer, "locale" varchar)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "ausers" ("id","email","password","created_at","updated_at","current_block_id","locale")
+                     SELECT "id","email","password","created_at","updated_at","current_block_id","locale" FROM "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime, "current_block_id" integer, "locale" varchar DEFAULT '' NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "users" ("id","email","password","created_at","updated_at","current_block_id","locale")
+                     SELECT "id","email","password","created_at","updated_at","current_block_id","locale" FROM "ausers"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "ausers"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150404104501"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to ChangeLocaleDefaultForUsers (20150405115143)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class ChangeLocaleDefaultForUsers < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "ausers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime, "current_block_id" integer, "locale" varchar DEFAULT '' NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "ausers" ("id","email","password","created_at","updated_at","current_block_id","locale")
+                     SELECT "id","email","password","created_at","updated_at","current_block_id","locale" FROM "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime, "current_block_id" integer, "locale" varchar DEFAULT '')[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "users" ("id","email","password","created_at","updated_at","current_block_id","locale")
+                     SELECT "id","email","password","created_at","updated_at","current_block_id","locale" FROM "ausers"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "ausers"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150405115143"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to ChangeLocaleNullForUsers (20150405165550)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class ChangeLocaleNullForUsers < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "ausers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime, "current_block_id" integer, "locale" varchar DEFAULT '')[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "ausers" ("id","email","password","created_at","updated_at","current_block_id","locale")
+                     SELECT "id","email","password","created_at","updated_at","current_block_id","locale" FROM "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime, "current_block_id" integer, "locale" varchar DEFAULT '' NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "users" ("id","email","password","created_at","updated_at","current_block_id","locale")
+                     SELECT "id","email","password","created_at","updated_at","current_block_id","locale" FROM "ausers"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "ausers"[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150405165550"]]
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to ChangeLocaleDefaultFalseForUsers (20150405175629)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class ChangeLocaleDefaultFalseForUsers < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "ausers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime, "current_block_id" integer, "locale" varchar DEFAULT '' NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "ausers" ("id","email","password","created_at","updated_at","current_block_id","locale")
+                     SELECT "id","email","password","created_at","updated_at","current_block_id","locale" FROM "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime, "current_block_id" integer, "locale" varchar NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "users" ("id","email","password","created_at","updated_at","current_block_id","locale")
+                     SELECT "id","email","password","created_at","updated_at","current_block_id","locale" FROM "ausers"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "ausers"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150405175629"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to ChangeLocaleNullTrueForUsers (20150405180053)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class ChangeLocaleNullTrueForUsers < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "ausers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime, "current_block_id" integer, "locale" varchar NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "ausers" ("id","email","password","created_at","updated_at","current_block_id","locale")
+                     SELECT "id","email","password","created_at","updated_at","current_block_id","locale" FROM "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "users"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password" varchar, "created_at" datetime, "updated_at" datetime, "current_block_id" integer, "locale" varchar)[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "users" ("id","email","password","created_at","updated_at","current_block_id","locale")
+                     SELECT "id","email","password","created_at","updated_at","current_block_id","locale" FROM "ausers"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "ausers"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150405180053"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to ChangeFieldsForCards (20150406123839)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class ChangeFieldsForCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" datetime NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "review_step" integer DEFAULT 1 NOT NULL, "quality" integer DEFAULT 1 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step","quality")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step","review_attempt" FROM "cards"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "cards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" datetime NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "review_step" integer DEFAULT 1 NOT NULL, "quality" integer DEFAULT 1 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "cards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step","quality")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step","quality" FROM "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" datetime NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "interval" integer DEFAULT 1 NOT NULL, "quality" integer DEFAULT 1 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","quality")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","review_step","quality" FROM "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "cards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" datetime NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "interval" integer DEFAULT 1 NOT NULL, "quality" integer DEFAULT 1 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "cards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","quality")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","quality" FROM "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" datetime NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "interval" integer DEFAULT 1 NOT NULL, "quality" integer DEFAULT 1 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","quality")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","quality" FROM "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "cards"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "cards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" datetime NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "interval" integer DEFAULT 1 NOT NULL, "quality" integer DEFAULT 5 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "cards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","quality")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","quality" FROM "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acards"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" datetime NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "interval" integer DEFAULT 1 NOT NULL, "quality" integer DEFAULT 5 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","quality")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","quality" FROM "cards"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "cards"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "cards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" datetime NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "interval" integer DEFAULT 1 NOT NULL, "quality" integer DEFAULT 5 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "cards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","quality")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","quality" FROM "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acards"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "cards" ADD "repeat" integer DEFAULT 1 NOT NULL[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "cards" ADD "efactor" float DEFAULT 2.5 NOT NULL[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150406123839"]]
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddAttemptToCards (20150406143521)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class AddAttemptToCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "cards" ADD "attempt" integer DEFAULT 1 NOT NULL[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150406143521"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to DeleteQualityFromCards (20150406175232)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class DeleteQualityFromCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" datetime NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "interval" integer DEFAULT 1 NOT NULL, "quality" integer DEFAULT 5 NOT NULL, "repeat" integer DEFAULT 1 NOT NULL, "efactor" float DEFAULT 2.5 NOT NULL, "attempt" integer DEFAULT 1 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","quality","repeat","efactor","attempt")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","quality","repeat","efactor","attempt" FROM "cards"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "cards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "cards" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "original_text" text, "translated_text" text, "review_date" datetime NOT NULL, "created_at" datetime, "updated_at" datetime, "user_id" integer NOT NULL, "image" varchar, "block_id" integer, "interval" integer DEFAULT 1 NOT NULL, "repeat" integer DEFAULT 1 NOT NULL, "efactor" float DEFAULT 2.5 NOT NULL, "attempt" integer DEFAULT 1 NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "cards" ("id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","repeat","efactor","attempt")
+                     SELECT "id","original_text","translated_text","review_date","created_at","updated_at","user_id","image","block_id","interval","repeat","efactor","attempt" FROM "acards"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acards"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150406175232"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddQualityToCards (20150406175914)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+DEPRECATION WARNING: Directly inheriting from ActiveRecord::Migration is deprecated. Please specify the Rails release the migration was written for:
+
+  class AddQualityToCards < ActiveRecord::Migration[4.2] (called from block in execute at /home/devico/.rvm/gems/ruby-2.4.0@global/gems/rake-12.0.0/lib/rake/task.rb:250)
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "cards" ADD "quality" integer DEFAULT 5 NOT NULL[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150406175914"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddDeviseToUsers (20170405124059)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" varchar DEFAULT '' NOT NULL[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" varchar[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" datetime[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" datetime[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "sign_in_count" integer DEFAULT 0 NOT NULL[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_at" datetime[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_at" datetime[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
