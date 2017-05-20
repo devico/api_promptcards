@@ -1,6 +1,6 @@
 module ApiPromptcards
   class Engine < ::Rails::Engine
-    paths.add 'lib', eager_load: true
+    config.autoload_paths << File.expand_path("../app/interactors", __FILE__)
     isolate_namespace ApiPromptcards
 
     config.generators do |g|
